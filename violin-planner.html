@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>สมุดซ้อมไวโอลิน</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1e8d0;--card:#fbf6e8;--ink:#3a2a1a;--mut:#7d6851;--g:#2f5d3f;--g2:#dde7cf;--br:#6b4423;--br2:#ead9b8;--line:#d6c59f;--warn:#a23b2a;--ev:#7a4e2b;--evt:#fbf6e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d2a21;--card:#26362b;--ink:#f1e8d0;--mut:#b9ac90;--g:#8fc79c;--g2:#31473a;--br:#d9a56b;--br2:#3d3426;--line:#46594b;--warn:#f0907b;--ev:#8a6540;--evt:#fbf6e8}}
+:root[data-theme="dark"]{--bg:#1d2a21;--card:#26362b;--ink:#f1e8d0;--mut:#b9ac90;--g:#8fc79c;--g2:#31473a;--br:#d9a56b;--br2:#3d3426;--line:#46594b;--warn:#f0907b;--ev:#8a6540;--evt:#fbf6e8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;line-height:1.5}
+h1,h2,h3{font-family:'Noto Serif Thai',Georgia,serif;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:16px 12px 40px}
+header{text-align:center;padding:10px 0 14px;border-bottom:3px double var(--br)}
+header h1{font-size:1.6rem;color:var(--g)}
+header p{margin:2px 0 0;color:var(--mut);font-size:.9rem}
+nav{display:flex;gap:6px;margin:14px 0}
+nav button{flex:1;padding:9px 4px;border:1px solid var(--line);background:var(--card);color:var(--br);font:600 .95rem 'Sarabun',sans-serif;border-radius:8px;cursor:pointer}
+nav button.on{background:var(--g);color:#fbf6e8;border-color:var(--g)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.warn{border-color:var(--warn);color:var(--warn);font-size:.9rem}
+input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%}
+button.b{background:var(--g);color:#fbf6e8;border:0;border-radius:8px;padding:7px 12px;font:600 .88rem 'Sarabun',sans-serif;cursor:pointer}
+button.b.alt{background:transparent;color:var(--br);border:1px solid var(--br)}
+button.b.del{background:transparent;color:var(--warn);border:1px solid var(--warn)}
+.ok{display:block;margin-top:3px;font:600 .72rem 'Sarabun',sans-serif;border:1px solid var(--g);background:var(--card);color:var(--g);border-radius:5px;padding:2px 6px;cursor:pointer}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form label{font-size:.82rem;color:var(--mut);display:flex;flex-direction:column;gap:2px}
+.full{grid-column:1/-1}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{display:inline-block;font-size:.72rem;padding:0 7px;border-radius:99px;margin-right:4px;background:var(--g2);color:var(--g)}
+.tag.band{background:var(--br2);color:var(--br)}
+.bar{height:7px;background:var(--br2);border-radius:9px;overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;background:var(--g)}
+small{color:var(--mut)}
+.note{font-size:.8rem;color:var(--mut);margin-top:8px}
+.em{font-size:.76rem;color:var(--mut)}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.mh{font-size:.75rem;color:var(--mut);padding:2px 0}
+.mc{border:0;background:transparent;color:inherit;font-family:inherit;width:100%;min-height:48px;border-radius:9px;padding:3px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.95rem}
+.mc span{width:27px;height:27px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
+.mc.tdy span{background:var(--g);color:#fbf6e8}
+.mc.sel{background:var(--g2)}
+.dots{display:flex;gap:3px;height:6px}
+.dots b{width:6px;height:6px;border-radius:50%;display:block}
+.de{background:var(--ev)}.dp{background:var(--g)}
+.ag{display:flex;gap:10px;align-items:stretch;padding:9px 0;border-top:1px dashed var(--line)}
+.at{width:46px;text-align:right;font:700 .92rem 'Sarabun',sans-serif;color:var(--br);flex:none;line-height:1.3}
+.ab{flex:1;min-width:0;border-left:4px solid var(--g);padding-left:10px}
+.ab.band{border-color:var(--br)}.ab.e{border-color:var(--ev);cursor:pointer}.ab.d{opacity:.5}
+.ab b{font:700 1.02rem 'Noto Serif Thai',serif;overflow-wrap:anywhere}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chip{border:1px solid var(--g);color:var(--g);border-radius:99px;padding:5px 13px;font:600 .88rem 'Sarabun',sans-serif;cursor:pointer;background:transparent}
+.chip.on{background:var(--g);color:#fbf6e8}
+.wn{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wn input{width:112px}
+.ag .ok{align-self:center;margin:0;font-size:.9rem;padding:8px 12px}
+
+button.ab{border:0;border-left:4px solid var(--ev);background:none;color:inherit;font:inherit;text-align:left;padding:0 0 0 10px;margin:0}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+#toast{display:none;position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);max-width:90vw;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.92rem;z-index:9;box-shadow:0 4px 14px #0004}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🎻 สมุดซ้อมไวโอลิน</h1><p>ปฏิทินที่จัดเพลงให้ซ้อมเองตามงานของคุณ</p><p class="em" id="sync"></p></header>
+<nav id="nav"></nav>
+<main id="app"></main>
+</div>
+<script>
+const K='violin-planner-v2';
+let T=new Date();T.setHours(0,0,0,0);
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const pd=s=>new Date(s+'T00:00');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nowMin=()=>{const n=new Date();return Math.min(1440,Math.ceil((n.getHours()*60+n.getMinutes())/5)*5)};
+let fk=null,lastDay=iso(T),lastTick=0,ask=null,ret=false,pn=null;
+const confirmBtn=(key,label,call,cls='b del',yes='ยืนยันลบ?')=>ask===key?`<button class="${cls}" onclick="ask=null;${call}">${yes}</button><button class="b alt" onclick="ask=null;render()">ไม่</button>`:`<button class="${cls}" onclick="ask='${key}';render()">${label}</button>`;
+function note(m){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(note._t);note._t=setTimeout(()=>{t.style.display='none'},3500)}
+function extendToday(){const k=iso(T),w=winFor(k),e=Math.min(1439,Math.max(toMin(w[1]),nowMin())+60);if(e-nowMin()<15){note('ใกล้สิ้นวันแล้ว ไปซ้อมพรุ่งนี้นะ');return}S.win[k]=[w[0],ts(e)];delete S.ai[k];save();render()}
+const linkedEv=p=>{const tk=iso(T);return S.events.filter(e=>e.pid===p.id&&e.date>=tk).sort((a,b)=>a.date>b.date?1:-1)};
+const dlSrc=p=>{const l=linkedEv(p)[0];if(!l)return null;const x=iso(addDays(pd(l.date),-1));return(!p.dl||x<=p.dl)?l:null};
+const evNote=p=>`<div class="full em">🔗 เพลงนี้เชื่อมกับนัดในปฏิทิน กำหนดจริงจึงเป็นวันก่อนนัดเสมอ (ถ้าวันที่ด้านบนช้ากว่านั้นจะไม่มีผล) ถ้าจะเปลี่ยนวันแสดง ให้แก้ที่นัด:${linkedEv(p).map(x=>`<div class="row" style="margin-top:4px"><button type="button" class="b alt" onclick="goEv(${x.id})">${EV[x.type][0]} ${esc(x.title)} · ${dm(pd(x.date))} → แก้วันที่</button></div>`).join('')}</div>`;
+function goEv(id){const e=S.events.find(x=>x.id===id);if(!e)return;tab='cal';sel=e.date;const d=pd(e.date);mo=(d.getFullYear()-T.getFullYear())*12+d.getMonth()-T.getMonth();editP=null;fe={...e};render();scrollTo(0,0);const f=document.getElementById('evf');f&&f.scrollIntoView({block:'center'})}
+const toMin=t=>{const[a,b]=(t||'0:0').split(':');return(+a)*60+(+b||0)};
+const ts=m=>{m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
+const WD=['อา','จ','อ','พ','พฤ','ศ','ส'];
+const EV={rehearse:['🎶','ซ้อมวง'],lesson:['📖','เรียน/เลสสัน'],concert:['🎭','แสดง/คอนเสิร์ต'],exam:['📝','สอบ/ออดิชั่น'],busy:['🔒','งานอื่น/ไม่ว่าง']};
+const dm=d=>d.toLocaleDateString('th-TH',{day:'numeric',month:'short'});
+const DW=['18:00','22:00'];
+let S={pieces:[],events:[],defwin:DW,win:{},ai:{},log:{},nid:10},tab='cal',mo=0,sel=iso(T),fe=null,editP=null,aib=null,rl=null,tmr;
+function load(raw){try{const r=raw||localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
+ if(!S.defwin)S.defwin=S.start?[S.start,ts(Math.min(1439,toMin(S.start)+240))]:DW;
+ if(!S.win)S.win={};if(!S.ai)S.ai={};if(!S.log)S.log={};
+ if(Array.isArray(S.log)||Object.values(S.log).some(v=>!Array.isArray(v)))S.log={};
+ S.events.forEach(e=>{if(!e.s){const t=['08:00','13:00','19:00'],st=toMin(t[(e.slots||[2])[0]]);e.s=ts(st);e.e=ts(Math.min(1439,st+120*(e.slots||[2]).length));delete e.slots}});
+ if(!S.pieces.length&&!S.seeded){S.seeded=1;const f=n=>iso(addDays(T,n));
+  S.pieces=[{id:1,title:'Bach – Chaconne (Partita No.2)',type:'solo',diff:5,len:14,dl:f(21),done:0},
+  {id:2,title:'Mendelssohn – Violin Concerto mov.1',type:'solo',diff:4,len:12,dl:'',done:60},
+  {id:3,title:'Beethoven – Symphony No.5 (ไวโอลิน 1)',type:'band',diff:3,len:30,dl:'',done:0},
+  {id:4,title:'Brahms – Hungarian Dance No.5',type:'band',diff:2,len:4,dl:f(6),done:0}];
+  S.events=[{id:5,title:'ซ้อมวงซิมโฟนี',type:'rehearse',date:f(2),s:'19:00',e:'21:30',pid:3},{id:6,title:'เรียนกับครู',type:'lesson',date:f(3),s:'16:00',e:'17:00',pid:2},
+  {id:7,title:'ประชุม/งานประจำ',type:'busy',date:f(1),s:'09:00',e:'17:00',pid:0},{id:8,title:'คอนเสิร์ต Beethoven 5',type:'concert',date:f(9),s:'19:30',e:'21:30',pid:3}]}}
+let DB=null,DPATH=null,wbusy=false,wdirty=false,_ct;
+function setSync(t){const e=document.getElementById('sync');if(e)e.textContent=t}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}cloudSave()}
+function cloudSave(){if(!DB)return;wdirty=true;clearTimeout(_ct);_ct=setTimeout(flush,500)}
+async function flush(){if(wbusy){setTimeout(flush,300);return}if(!wdirty)return;wbusy=true;wdirty=false;setSync('กำลังบันทึก…');
+ try{await DB.doc(DPATH).set({v:JSON.stringify(S)});setSync('☁ บันทึกแล้ว')}catch(e){setSync('⚠ บันทึกบนคลาวด์ไม่สำเร็จ');wdirty=true}wbusy=false}
+async function cloudInit(){
+ try{const c=window.claude;if(!c||!c.use){setSync('บันทึกในเครื่องนี้เท่านั้น');return}
+  const db=await c.use('db'),user=await c.use('user'),id=user?await user.id():null;
+  if(!db||!id){setSync('บันทึกในเครื่องนี้เท่านั้น');return}
+  DPATH='data/users/'+id+'/state';
+  const snap=await db.doc(DPATH).get(),d=snap.exists?snap.data():null;
+  if(d&&d.v){load(d.v);try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}DB=db;setSync('☁ บันทึกแล้ว');render()}
+  else{DB=db;wdirty=true;await flush()}
+ }catch(e){setSync('บันทึกในเครื่องนี้เท่านั้น')}
+}
+const coef=p=>p.type==='band'?5:9;
+const total=p=>Math.round(p.diff*p.len*coef(p));
+const remOf=p=>Math.max(0,total(p)-p.done);
+const winFor=k=>S.win[k]||S.defwin;
+const winMin=k=>{const w=winFor(k);return Math.max(0,toMin(w[1])-toMin(w[0]))};
+function effDl(p){let d=p.dl||'';const tk=iso(T);
+ S.events.forEach(e=>{if(e.pid===p.id&&e.date>=tk){let x=iso(addDays(pd(e.date),-1));if(x<tk)x=tk;if(!d||x<d)d=x}});return d}
+function gapsOf(ws,we,fx){let g=[[ws,we]];fx.forEach(f=>{const n=[];g.forEach(([a,b])=>{if(f.e<=a||f.s>=b)n.push([a,b]);else{if(f.s>a)n.push([a,f.s]);if(f.e<b)n.push([f.e,b])}});g=n});return g.filter(x=>x[1]-x[0]>=5)}
+function sim(){
+ const rem={},dls={},plan={},free={},remAt={};
+ S.pieces.forEach(p=>{rem[p.id]=remOf(p);let dl=effDl(p);if(dl&&dl<iso(T))dl=iso(T);dls[p.id]=dl});
+ for(let i=0;i<120;i++){
+  const d=addDays(T,i),k=iso(d),lg=S.log[k]||[];
+  remAt[k]={...rem};
+  const w=winFor(k),fx=[...S.events.filter(e=>e.date===k).map(e=>({s:toMin(e.s),e:toMin(e.e)})),...lg.map(l=>({s:l.st,e:l.st+l.m}))];
+  if(i===0)fx.push({s:0,e:nowMin()});
+  const g=gapsOf(toMin(w[0]),Math.max(toMin(w[0]),toMin(w[1])),fx);
+  const fm=Math.floor(g.reduce((a,x)=>a+x[1]-x[0],0)/5)*5;free[k]=fm;
+  let sl=[];
+  if(S.ai[k]&&fm>=15){let left=fm;S.ai[k].forEach(a=>{const p=S.pieces.find(q=>q.id===a.id);if(!p||rem[p.id]<=0)return;const m=Math.min(a.m,rem[p.id],left);if(m>=15){sl.push({p,m});left-=m;rem[p.id]-=m}})}
+  else{
+   const ws=S.pieces.filter(p=>rem[p.id]>0&&(!dls[p.id]||dls[p.id]>=k)).map(p=>{const dl=dls[p.id],dd=dl?Math.max(1,Math.round((pd(dl)-d)/864e5)+1):30;
+    return{p,w:rem[p.id]/dd*(1+(p.diff-1)*.15)*(p.type==='band'?1.1:1)}}).sort((a,b)=>b.w-a.w);
+   const sw=ws.reduce((a,b)=>a+b.w,0);
+   if(sw>0&&fm>=15){let left=fm;
+    ws.forEach(x=>{let m=Math.round(fm*x.w/sw/5)*5;m=Math.min(m,rem[x.p.id],left);if(m>=15){sl.push({p:x.p,m});left-=m;rem[x.p.id]-=m}});
+    if(!sl.length){const x=ws[0],m=Math.min(Math.floor(fm/5)*5,rem[x.p.id]);sl.push({p:x.p,m});left-=m;rem[x.p.id]-=m}
+    for(const s of sl){const a=Math.floor(Math.min(left,rem[s.p.id])/5)*5;if(a>0){s.m+=a;rem[s.p.id]-=a;left-=a}}
+    sl.sort((a,b)=>b.p.diff-a.p.diff);
+   }
+  }
+  const placed=[];
+  sl.forEach(s=>{let gi=g.findIndex(x=>x[1]-x[0]>=s.m);
+   if(gi<0){gi=g.findIndex(x=>x[1]-x[0]>=15);if(gi<0){rem[s.p.id]+=s.m;return}const nm=Math.floor((g[gi][1]-g[gi][0])/5)*5;rem[s.p.id]+=s.m-nm;s.m=nm}
+   s.s=g[gi][0];s.e=s.s+s.m;g[gi][0]=s.e;placed.push(s)});
+  placed.sort((a,b)=>a.s-b.s);plan[k]=placed;
+ }
+ return{plan,rem,dls,free,remAt};
+}
+const fmt=m=>m>=60?Math.floor(m/60)+' ชม.'+(m%60?' '+m%60+' น.':''):m+' น.';
+const why=(p,dls)=>{const dl=dls[p.id];if(!dl)return'ไม่มีกำหนด ซ้อมสม่ำเสมอ';const n=Math.round((pd(dl)-T)/864e5);return n<=0?'ถึงกำหนดแล้ว รีบซ้อม':'อีก '+n+' วันถึงกำหนด'};
+const isSample=()=>S.pieces.some(p=>p.id===1&&p.title==='Bach – Chaconne (Partita No.2)');
+function clearSample(){{S.pieces=[];S.events=[];S.log={};S.win={};S.ai={};tab='lib';save();render()}}
+function formEv(){
+ const e=fe;
+ return`<div class="card" id="evf"><h3>${e.id?'แก้ไขนัด':'เพิ่มนัดในปฏิทิน'}</h3><div class="form" style="margin-top:8px">
+ <label class="full">ชื่อ<input id="e_t" value="${esc(e.title)}" placeholder="เช่น ซ้อมวง, เรียนกับครู, ประชุม"></label>
+ <label>ประเภท<select id="e_ty">${Object.entries(EV).map(([k,v])=>`<option value="${k}"${e.type===k?' selected':''}>${v[0]} ${v[1]}</option>`).join('')}</select></label>
+ <label>วันที่<input id="e_d" type="date" value="${e.date}"></label>
+ <label>เริ่ม<input id="e_s" type="time" value="${e.s}"></label>
+ <label>จบ<input id="e_e" type="time" value="${e.e}"></label>
+ <label class="full">เชื่อมกับเพลง (แอปจะจัดซ้อมเพลงนี้ให้พร้อมก่อนวันนัด)<select id="e_p"><option value="0">— ไม่เชื่อม —</option>${S.pieces.map(p=>`<option value="${p.id}"${e.pid===p.id?' selected':''}>${esc(p.title)}</option>`).join('')}</select></label>
+ ${e.id?'':'<label>ทำซ้ำทุกสัปดาห์ (จำนวนครั้ง)<input id="e_r" type="number" min="1" max="26" value="1"></label>'}</div>
+ <div class="row"><button class="b" onclick="saveEv()">บันทึก</button>${e.id?confirmBtn('ev'+e.id,'ลบ','delEv()'):''}<button class="b alt" onclick="fe=null;render()">ปิด</button></div></div>`;
+}
+function dayPanel(k,o){
+ const tk=iso(T),d=pd(k),past=k<tk,lg=S.log[k]||[],pl=o.plan[k]||[],w=winFor(k),wl=winMin(k),it=[];
+ S.events.filter(e=>e.date===k).forEach(e=>it.push({s:toMin(e.s),h:`<div class="ag"><div class="at">${e.s}<br><small>${e.e}</small></div><button type="button" class="ab e" onclick="openEv(${e.id})"><b>${EV[e.type][0]} ${esc(e.title)}</b><br><small>${fmt(toMin(e.e)-toMin(e.s))}${e.pid?' · เชื่อมกับเพลง':''}</small></button></div>`}));
+ lg.forEach((l,li)=>{const p=S.pieces.find(q=>q.id===l.id);it.push({s:l.st,h:`<div class="ag"><div class="at">${ts(l.st)}<br><small>${ts(l.st+l.m)}</small></div><div class="ab d"><b>✓ ${p?esc(p.title):''}</b><br><small>ซ้อมแล้ว ${l.m} น.</small></div><button type="button" class="ok" onclick="undoLog('${k}',${li})">↶ ยกเลิก</button></div>`})});
+ pl.forEach(x=>it.push({s:x.s,h:`<div class="ag"><div class="at">${ts(x.s)}<br><small>${ts(x.e)}</small></div><div class="ab ${x.p.type}"><b>${esc(x.p.title)}</b><br><small>${x.p.type==='band'?'วง':'โซโล'} · ซ้อม ${x.m} น. · ${why(x.p,o.dls)}</small></div>${k===tk?`<button class="ok" onclick="doneSlot('${k}',${x.p.id},${x.m},${x.s})">✓ เสร็จ</button>`:''}</div>`}));
+ it.sort((a,b)=>a.s-b.s);
+ let h=`<div class="card" style="margin-top:10px"><div class="top"><h3>${d.toLocaleDateString('th-TH',{weekday:'long',day:'numeric',month:'long'})}${k===tk?' · วันนี้':''}</h3></div>`;
+ if(!past){
+  const hrs=wl/60;
+  h+=`<div class="wn"><b>ช่วงว่างซ้อม</b><input id="w_s" type="time" value="${w[0]}" oninput="winEdit('${k}',0,this.value)"> – <input id="w_e" type="time" value="${w[1]}" oninput="winEdit('${k}',1,this.value)"></div>
+  <div class="chips">${[1,2,3,4,5,6].map(n=>`<button type="button" class="chip ${hrs===n?'on':''}" aria-pressed="${hrs===n}" onclick="setLen('${k}',${n})">${n} ชม.</button>`).join('')}<button type="button" class="chip ${wl===0?'on':''}" aria-pressed="${wl===0}" onclick="setLen('${k}',0)">พัก</button></div>
+  <div class="em" style="margin-top:6px">รวม ${fmt(wl)} · ${k===tk?'ว่างจริงหลังหักนัดและเวลาที่ผ่านไปแล้ว':'ว่างจริงหลังหักนัด'} ${fmt(o.free[k]||0)}${S.win[k]?' · ปรับเฉพาะวันนี้':''}</div>
+  <div class="row" style="margin-top:6px"><button class="b alt" onclick="S.defwin=[...winFor('${k}')];save();render()">ใช้เป็นค่าปกติทุกวัน</button>${S.win[k]?`<button class="b alt" onclick="delete S.win['${k}'];delete S.ai['${k}'];save();render()">คืนค่าปกติ</button>`:''}</div>
+  <div class="row"><button class="b" onclick="aiPlan('${k}')" ${aib?'disabled':''}>${aib===k?'⏳ Claude กำลังคิด…':'✨ ให้ Claude จัดวันนี้'}</button>${S.ai[k]?`<button class="b alt" onclick="delete S.ai['${k}'];save();render()">กลับไปจัดอัตโนมัติ</button>`:''}</div>
+  <div class="em" style="margin-top:4px">${S.ai[k]?'แผนวันนี้ถูกจัดเอง (โดยคุณหรือ Claude)':'ตอนนี้แอปจัดให้อัตโนมัติและคำนวณใหม่ทุกครั้งที่แก้เวลา'}</div>`;
+ }
+ const fm=o.free[k]||0;
+ h+=it.length?it.map(x=>x.h).join(''):`<div class="ag"><div class="ab" style="border:0">${past?'ไม่มีรายการ':!S.pieces.length?'ยังไม่มีเพลง กดปุ่มด้านล่างเพื่อเพิ่ม':remNone(o)?'ทุกเพลงซ้อมครบตามเป้าแล้ว 🎉':(k===tk&&wl>0&&nowMin()>=toMin(w[1]))?'ช่วงซ้อมของวันนี้ผ่านไปแล้ว<br><button type="button" class="b" style="margin-top:6px" onclick="extendToday()">+ ต่อเวลาซ้อมวันนี้ 1 ชม.</button>':fm<15?'ไม่มีช่วงว่างซ้อมวันนี้ — ขยายช่วงเวลาด้านบนได้เลย':'ไม่มีเพลงที่ต้องซ้อมในวันนี้'}</div></div>`;
+ h+=`<div class="row"><button class="b" onclick="tab='lib';editP=null;ret='${k}';render();scrollTo(0,0)">+ เพิ่มเพลงที่จะซ้อม</button><button class="b alt" onclick="newEv('${k}')">+ เพิ่มนัด</button>${!past&&S.pieces.length?`<button class="b alt" onclick="togglePn('${k}')">+ ใส่เพลงเข้าแผน</button>`:''}${k<=tk&&S.pieces.length?`<button class="b alt" onclick="toggleRl('${k}')">+ บันทึกที่ซ้อมไปแล้ว</button>`:''}</div>${rl===k?retroForm(k):''}${pn===k?pinForm(k):''}</div>`;
+ return h;
+}
+const remNone=o=>!S.pieces.some(p=>p.diff&&(total(p)-p.done)>0);
+function viewCal(){
+ const o=sim(),tk=iso(T),base=new Date(T.getFullYear(),T.getMonth()+mo,1),first=base.getDay(),dim=new Date(base.getFullYear(),base.getMonth()+1,0).getDate();
+ const end=iso(addDays(T,119));
+ let h='';
+ if(isSample())h+=`<div class="card em">ตอนนี้เป็นข้อมูลตัวอย่าง ${confirmBtn('sample','ล้างตัวอย่าง แล้วใส่เพลงของฉัน','clearSample()','b alt','ยืนยันล้างข้อมูลตัวอย่าง?')}</div>`;
+ h+=`<div class="card"><div class="top"><button class="b alt" onclick="mo--;render()">◀</button><div style="text-align:center"><b>${base.toLocaleDateString('th-TH',{month:'long',year:'numeric'})}</b>${mo?' <button class="b alt" style="padding:2px 8px" onclick="mo=0;sel=\''+tk+'\';render()">วันนี้</button>':''}</div><button class="b alt" onclick="mo++;render()">▶</button></div><div class="mg" style="margin-top:8px">${WD.map(x=>`<div class="mh">${x}</div>`).join('')}`;
+ for(let i=0;i<first+dim;i++){
+  if(i<first){h+='<div></div>';continue}
+  const dd=new Date(base.getFullYear(),base.getMonth(),i-first+1),k=iso(dd);
+  const ev=S.events.some(e=>e.date===k),pr=(o.plan[k]||[]).length||(S.log[k]||[]).length;
+  h+=`<button type="button" class="mc ${k===sel?'sel':''} ${k===tk?'tdy':''}" aria-label="${dd.getDate()} ${dd.toLocaleDateString('th-TH',{month:'long'})}${k===tk?' วันนี้':''}${ev?' มีนัด':''}${pr?' มีเพลงให้ซ้อม':''}" aria-pressed="${k===sel}" onclick="sel='${k}';rl=null;pn=null;render()"><span>${dd.getDate()}</span><i class="dots">${ev?'<b class="de"></b>':''}${pr?'<b class="dp"></b>':''}</i></button>`}
+ h+=`</div><div class="note">จุดเขียว = มีเพลงให้ซ้อม · จุดน้ำตาล = มีนัด/งาน</div></div>`;
+ if(fe)h+=formEv();
+ h+=dayPanel(sel,o);
+ S.pieces.filter(p=>o.rem[p.id]>0&&o.dls[p.id]&&o.dls[p.id]<=end).forEach(p=>h+=`<div class="card warn">⚠️ ${esc(p.title)} เวลาไม่พอก่อน ${dm(pd(o.dls[p.id]))} ขาดอีกราว ${fmt(Math.ceil(o.rem[p.id]/5)*5)} — ขยายช่วงว่างซ้อมในบางวัน</div>`);
+ return h;
+}
+function viewLib(){
+ const e=S.pieces.find(p=>p.id===editP)||{title:'',type:'solo',diff:3,len:5,dl:''};
+ let h=`<div class="card"><h3>${editP?'แก้ไขเพลง':'เพิ่มเพลง'}</h3><div class="form" style="margin-top:8px">
+ <label class="full">ชื่อเพลง<input id="f_t" value="${esc(e.title)}" placeholder="เช่น Bruch – Violin Concerto No.1"></label>
+ <label>ประเภท<select id="f_ty"><option value="solo"${e.type==='solo'?' selected':''}>โซโล</option><option value="band"${e.type==='band'?' selected':''}>เพลงวง</option></select></label>
+ <label>ความยาก<select id="f_d">${[1,2,3,4,5].map(n=>`<option value="${n}"${e.diff===n?' selected':''}>${'★'.repeat(n)}</option>`).join('')}</select></label>
+ <label>ความยาวเพลง (นาที)<input id="f_l" type="number" min="1" value="${e.len}"></label>
+ <label>ความคืบหน้าตอนนี้<select id="f_p">${editP?'<option value="-1">คงเดิม</option>':''}${[0,25,50,75,90].map(n=>`<option value="${n}">${n}%</option>`).join('')}</select></label>
+ <label class="full">กำหนดส่ง/วันแสดง (ถ้ามี — หรือเชื่อมผ่านงานในปฏิทินแทนก็ได้)<input id="f_dl" type="date" value="${e.dl||''}"></label>${editP&&linkedEv(e).length?evNote(e):''}</div>
+ <div class="row"><button class="b" onclick="savePiece()">${editP?'บันทึก':'เพิ่มเพลง'}</button>${editP?'<button class="b alt" onclick="editP=null;render()">ยกเลิก</button>':''}</div>
+ <div class="note">แอปประเมินปริมาณซ้อมจาก ความยาก × ความยาวเพลง (เพลงวงใช้น้อยกว่าเพราะมีซ้อมรวม) แล้วกระจายลงช่วงว่างในปฏิทินให้เอง ไม่ต้องใส่เวลา</div></div>`;
+ const dls=sim().dls;
+ [...S.pieces].sort((a,b)=>(dls[a.id]||'9')>(dls[b.id]||'9')?1:-1).forEach(p=>{
+  const pc=Math.min(100,Math.round(p.done/total(p)*100)),src=dlSrc(p);
+  h+=`<div class="card"><b>${esc(p.title)}</b><div><small><span class="tag ${p.type}">${p.type==='band'?'วง':'โซโล'}</span>ยาก ${'★'.repeat(p.diff)} · ${p.len} นาที${dls[p.id]?' · กำหนด '+dm(pd(dls[p.id]))+(src?' (ก่อนนัด '+esc(src.title)+')':''):''}</small></div>
+  <div class="bar"><i style="width:${pc}%"></i></div><small>คืบหน้า ${pc}%</small>
+  <div class="row" style="margin-top:6px"><button class="b alt" onclick="editP=${p.id};render();scrollTo(0,0)">แก้ไข</button>${src?`<button type="button" class="b alt" onclick="goEv(${src.id})">เปลี่ยนวันนัด</button>`:''}${confirmBtn('pc'+p.id,'ลบ','delPiece('+p.id+')')}</div></div>`});
+ return h;
+}
+function savePiece(){
+ const g=id=>document.getElementById(id);const t=g('f_t').value.trim();if(!t){note('กรุณาใส่ชื่อเพลง');return}
+ const o={title:t,type:g('f_ty').value,diff:+g('f_d').value,len:Math.max(1,+g('f_l').value||1),dl:g('f_dl').value};
+ const pc=+g('f_p').value,wasNew=!editP;
+ if(editP){const p=S.pieces.find(q=>q.id===editP);Object.assign(p,o);if(pc>=0)p.done=Math.round(total(p)*pc/100);editP=null}
+ else{o.id=S.nid++;o.done=0;S.pieces.push(o);o.done=Math.round(total(o)*pc/100)}
+ fk=null;if(wasNew&&ret){tab='cal';sel=ret;ret=false;const d=pd(sel);mo=(d.getFullYear()-T.getFullYear())*12+d.getMonth()-T.getMonth();note('เพิ่มเพลงแล้ว — อยากซ้อมวันนี้ กด "+ ใส่เพลงเข้าแผน"')}
+ save();render();scrollTo(0,0);
+}
+function delPiece(id){{S.pieces=S.pieces.filter(p=>p.id!==id);S.events.forEach(e=>{if(e.pid===id)e.pid=0});save();render()}}
+function toggleRl(k){rl=rl===k?null:k;pn=null;render()}
+function togglePn(k){pn=pn===k?null:k;rl=null;render()}
+function pinForm(k){return`<div class="form" style="margin-top:10px"><label>เพลงที่อยากซ้อม<select id="rl_pp">${S.pieces.map(p=>`<option value="${p.id}">${esc(p.title)}</option>`).join('')}</select></label><label>กี่นาที<input id="rl_pm" type="number" min="15" step="5" value="30"></label></div><div class="row"><button class="b" onclick="savePn('${k}')">ใส่เข้าแผน</button><button class="b alt" onclick="pn=null;render()">ปิด</button></div><div class="em" style="margin-top:4px">เพลงนี้จะได้ซ้อมก่อน ส่วนที่เหลือจัดตามช่วงว่างเท่าที่มี</div>`}
+function savePn(k){
+ const id=+document.getElementById('rl_pp').value,p=S.pieces.find(q=>q.id===id);if(!p)return;
+ if(remOf(p)<=0){note('เพลงนี้ซ้อมครบตามเป้าแล้ว');return}
+ const o=sim();if((o.free[k]||0)<15){note('ช่วงว่างซ้อมของวันนี้ไม่พอ — ขยายเวลาด้านบนก่อน');return}
+ const m=Math.max(15,Math.min(600,Math.round((+document.getElementById('rl_pm').value||0)/5)*5));
+ S.ai[k]=[{id,m},...(o.plan[k]||[]).filter(x=>x.p.id!==id).map(x=>({id:x.p.id,m:x.m}))];
+ pn=null;fk=null;save();render();
+}
+function retroForm(k){return`<div class="form" style="margin-top:10px"><label>เพลงที่ซ้อม<select id="rl_p">${S.pieces.map(p=>`<option value="${p.id}">${esc(p.title)}</option>`).join('')}</select></label><label>ซ้อมไปกี่นาที<input id="rl_m" type="number" min="5" step="5" value="30"></label></div><div class="row"><button class="b" onclick="saveRl('${k}')">บันทึก</button><button class="b alt" onclick="rl=null;render()">ปิด</button></div><div class="em" style="margin-top:4px">ใช้เมื่อซ้อมไปแล้วแต่ลืมกดเสร็จ หรือซ้อมนอกแผน</div>`}
+function saveRl(k){
+ const p=S.pieces.find(q=>q.id===+document.getElementById('rl_p').value);if(!p)return;
+ const m=Math.max(5,Math.min(600,Math.round((+document.getElementById('rl_m').value||0)/5)*5));
+ let st;
+ if(k===iso(T))st=Math.max(0,nowMin()-m);
+ else{st=toMin(winFor(k)[0]);(S.log[k]||[]).forEach(l=>{st=Math.max(st,l.st+l.m)});st=Math.min(st,1440-m)}
+ (S.log[k]=S.log[k]||[]).push({id:p.id,m,st});p.done+=m;delete S.ai[k];rl=null;fk=null;save();render();
+}
+function undoLog(k,i){const lg=S.log[k]||[],l=lg[i];if(!l)return;const p=S.pieces.find(q=>q.id===l.id);if(p)p.done=Math.max(0,p.done-l.m);lg.splice(i,1);if(!lg.length)delete S.log[k];delete S.ai[k];save();render()}
+function refreshToday(){const n=new Date();n.setHours(0,0,0,0);const nk=iso(n);if(nk===lastDay)return false;const old=lastDay;T=n;lastDay=nk;if(sel<=old)sel=nk;mo=0;render();return true}
+function tick(){if(refreshToday())return;const n=nowMin();if(n===lastTick)return;const a=document.activeElement;if(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName))return;lastTick=n;render()}
+function snap(){const o={};document.querySelectorAll('#app [id^="e_"],#app [id^="f_"],#app [id^="rl_"]').forEach(el=>{o[el.id]=el.value});return o}
+function formKey(){const k=[];if(tab==='cal'){if(fe)k.push('ev:'+(fe.id||'new:'+fe.date));if(rl)k.push('rl:'+rl);if(pn)k.push('pn:'+pn)}else k.push('p:'+(editP||'new'));return k.join('|')}
+function render(){
+ const a=document.activeElement,id=a&&a.id;let ss=null,se=null;try{ss=a.selectionStart;se=a.selectionEnd}catch(e){}
+ const old=snap();
+ document.getElementById('nav').innerHTML=[['cal','📅 ปฏิทิน'],['lib','🎼 เพลง']].map(([k,l])=>`<button class="${tab===k?'on':''}" onclick="tab='${k}';ret=false;render()">${l}</button>`).join('');
+ document.getElementById('app').innerHTML=tab==='cal'?viewCal():viewLib();
+ const key=formKey();
+ if(key&&key===fk)Object.keys(old).forEach(i=>{const el=document.getElementById(i);if(!el)return;if(el.tagName==='SELECT'&&![...el.options].some(o=>o.value===old[i]))return;el.value=old[i]});
+ fk=key;
+ if(id){const el=document.getElementById(id);if(el){el.focus();try{if(ss!=null)el.setSelectionRange(ss,se)}catch(e){}}}
+}
+let pw={},wt;
+function winEdit(k,i,v){if(!v)return;pw[i]=v;pw.k=k;clearTimeout(wt);wt=setTimeout(()=>{const kk=pw.k,a=pw[0],b=pw[1];pw={};if(a)setWin(kk,0,a);if(b)setWin(kk,1,b)},900)}
+function setWin(k,i,v){if(!v)return;const w=[...winFor(k)];w[i]=v;if(i===0&&toMin(w[1])<=toMin(w[0]))w[1]=ts(Math.min(1439,toMin(w[0])+60));if(toMin(w[1])<toMin(w[0]))w[1]=w[0];S.win[k]=w;delete S.ai[k];save();render()}
+function setLen(k,h){const w=winFor(k);S.win[k]=[w[0],ts(Math.min(1439,toMin(w[0])+h*60))];if(h===0)S.win[k]=[w[0],w[0]];delete S.ai[k];save();render()}
+function newEv(k){fe={date:k,type:'rehearse',title:'',s:'19:00',e:'21:00',pid:0};sel=k;tab='cal';render();const f=document.getElementById('evf');f&&f.scrollIntoView({block:'center'})}
+function openEv(id){fe={...S.events.find(e=>e.id===id)};render();const f=document.getElementById('evf');f&&f.scrollIntoView({block:'center'})}
+function saveEv(){
+ const g=id=>document.getElementById(id);
+ const type=g('e_ty').value,title=g('e_t').value.trim()||EV[type][1];
+ if(!g('e_d').value||!g('e_s').value||!g('e_e').value){note('กรอกวันที่และเวลาเริ่ม–จบ');return}
+ if(toMin(g('e_e').value)<=toMin(g('e_s').value)){note('เวลาจบต้องหลังเวลาเริ่ม');return}
+ const o={title,type,date:g('e_d').value,s:g('e_s').value,e:g('e_e').value,pid:+g('e_p').value};
+ if(fe.id)Object.assign(S.events.find(e=>e.id===fe.id),o);
+ else{const n=Math.max(1,Math.min(26,+g('e_r').value||1));for(let i=0;i<n;i++)S.events.push({...o,id:S.nid++,date:iso(addDays(pd(o.date),7*i))})}
+ sel=o.date;fe=null;fk=null;save();render();
+}
+function delEv(){S.events=S.events.filter(e=>e.id!==fe.id);fe=null;fk=null;save();render()}
+function doneSlot(k,id,m,st){(S.log[k]=S.log[k]||[]).push({id,m,st});delete S.ai[k];const p=S.pieces.find(q=>q.id===id);if(p)p.done+=m;save();render()}
+async function aiPlan(k){
+ const o=sim(),free=o.free[k]||0;
+ if(free<15){note('ช่วงว่างซ้อมของวันนี้น้อยเกินไป ขยายช่วงเวลาก่อนนะ');return}
+ let sample=null;try{sample=window.claude&&await window.claude.use('sample')}catch(e){}
+ if(!sample){note('เครื่องนี้ยังเรียก Claude จากในแอปไม่ได้ ใช้การจัดอัตโนมัติไปก่อน');return}
+ const ra=o.remAt[k],data=S.pieces.filter(p=>ra[p.id]>0).map(p=>({id:p.id,ชื่อ:p.title,ประเภท:p.type==='band'?'เพลงวง':'โซโล',ความยาก:p.diff,เหลือนาที:ra[p.id],กำหนด:o.dls[p.id]||null}));
+ if(!data.length){note('ไม่มีเพลงที่ต้องซ้อมแล้ว');return}
+ aib=k;render();
+ try{
+  const r=await sample.json(`คุณช่วยจัดเวลาซ้อมไวโอลินของวันที่ ${k}\nเวลาซ้อมที่ว่างจริง ${free} นาที\nเพลง: ${JSON.stringify(data)}\nกติกา: เลือกเพลงและจำนวนนาทีให้เหมาะ (เป็นทวีคูณของ 5, ขั้นต่ำ 15, แต่ละเพลงไม่เกินเหลือนาที, รวมไม่เกิน ${free}) เพลงที่ใกล้กำหนดและยากให้เวลามากกว่า เพลงวงที่มีนัดซ้อมใกล้ๆ ให้ความสำคัญ เรียงตามลำดับที่ควรซ้อม (เพลงยากก่อน)\nตอบเป็น JSON array เท่านั้น: [{"id":ตัวเลข,"minutes":ตัวเลข}]`,{cache:false,modelTier:'quick'});
+  const a=(Array.isArray(r)?r:[]).map(x=>({id:+x.id,m:Math.floor((+x.minutes||0)/5)*5})).filter(x=>S.pieces.some(p=>p.id===x.id)&&x.m>=15);
+  if(!a.length)throw 0;
+  S.ai[k]=a;save();
+ }catch(e){note('ให้ Claude จัดไม่สำเร็จ ลองใหม่อีกครั้ง หรือใช้การจัดอัตโนมัติต่อ')}
+ aib=null;render();
+}
+load();render();cloudInit();
+lastTick=nowMin();setInterval(tick,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});window.addEventListener('focus',tick);
+</script>
+
+</body>
+</html>
